@@ -1,9 +1,7 @@
 function Header() {
   return (
     <div className="text-white h-auto p-10 bg-slate-600 justify-center flex flex-col">
-      <div className="text-center text-3xl text-gray-900 font-bold rounded-lg shadow-gray-900 shadow-custom p-2 m-0 self-center whitespace-nowrap w-44 mb-2">
-        LA UNICA
-      </div>
+      
       <div className="flex self-center">
         <svg
           className="text-gray-900 -mr-10"
@@ -21,22 +19,22 @@ function Header() {
 
           <path d="M389.221,63.258c-3.691-3.044-9.15-2.522-12.197,1.17c-15.903,19.279-33.486,37.545-52.265,54.294 c-3.571,3.185-3.884,8.661-0.699,12.232c1.712,1.92,4.085,2.897,6.47,2.897c2.05,0,4.112-0.724,5.763-2.198 c19.435-17.333,37.637-36.241,54.1-56.199C393.437,71.762,392.912,66.302,389.221,63.258z"></path>
         </svg>
+        <div className="flex self-center flex-col">
+        <div className="text-center text-3xl  font-bold rounded-lg shadow-gray-900 shadow-custom p-2 m-0 self-center whitespace-nowrap w-44 mb-2">
+        LA UNICA
+      </div>
+          <h1 className="text-center text-xl self-center mx-5">
+            Productos para el Aseo en General
+          </h1>
+        </div>
 
-        <h1 className="text-center text-xl self-center mx-5">
-          Productos para el Aseo en General
-        </h1>
         <svg
-        height="200px"
-        width="200px"
-        fill="currentColor"
-         className="text-gray-900"
+          fill="currentColor"
+          className="text-gray-900 w-44"
           xmlns="http://www.w3.org/2000/svg"
-          version="1.0"
-          viewBox="0 0 2000 1270"
+          viewBox="0 0 1500 1500"
         >
-          <g
-            transform="translate(0.000000,1580.000000) scale(0.200000,-0.200000)"
-          >
+          <g transform="translate(0.000000,1580.000000) scale(0.200000,-0.200000)">
             <path d="M4922 12778 c-12 -13 -33 -55 -47 -94 -14 -38 -358 -1291 -766 -2784 -407 -1493 -878 -3219 -1046 -3834 -309 -1134 -317 -1166 -283 -1200 7 -7 25 -5 59 6 27 9 61 13 74 11 24 -5 27 -1 41 48 12 44 588 2182 886 3289 254 945 1211 4498 1216 4513 3 10 0 17 -7 17 -7 0 -22 9 -33 19 -35 32 -68 35 -94 9z" />
             <path d="M2608 4789 c-10 -5 -18 -14 -18 -20 0 -5 37 -26 83 -47 45 -21 123 -66 173 -100 94 -64 154 -87 154 -59 0 21 -82 127 -124 160 -62 48 -135 77 -196 77 -30 -1 -63 -5 -72 -11z" />
             <path d="M2487 4566 c-49 -13 -87 -40 -74 -52 4 -4 51 -11 106 -15 159 -14 224 -46 370 -181 105 -98 145 -104 98 -14 -66 125 -180 231 -281 261 -60 18 -154 18 -219 1z" />
