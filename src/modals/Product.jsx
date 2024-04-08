@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { AddToCartIcon } from '../components/Icons.jsx'
+import { useCart } from '../hooks/useCart.jsx'
 
 function Product({ product, setProductModal }) {
   const [currentImage, setCurrentImage] = useState(product.urlImagen[0]);
   const [units, setUnits] = useState(1);
+  const { addToCart } = useCart()
 
 
   
@@ -27,11 +30,11 @@ function Product({ product, setProductModal }) {
         className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center "
         onClick={() => setProductModal(false)}
       >
-    <div className="grid grid-cols-1 lg:grid-cols-2 bg-white p-5 rounded-xl mx-10 my-auto text-black" onClick={(e) => {
+    <div className="w-11/12 grid grid-cols-1 lg:grid-cols-2 bg-white p-5 rounded-xl mx-10 my-auto text-black" onClick={(e) => {
             e.stopPropagation();
           }}>
       <div className="">
-        <div className="flex items-center justify-center">
+        <div className="flex">
           <img className="w-96 rounded-xl " src={currentImage} />
         </div>
 
@@ -53,10 +56,10 @@ function Product({ product, setProductModal }) {
         </div>
       </div>
       <div className="text-center flex-col flex justify-center mt-10">
-        <h2 className="text-3xl font-bold capitalize jus">{product.nombre}</h2>
+        <h2 className="text-2xl font-bold capitalize jus">{product.nombre}</h2>
 
         {product.descripcion.map((image, index) => (
-          <h2 className="text-lg mt-10 " key={index}>{image}</h2>
+          <p className="text-lg mt-4 " key={index}>{image}</p>
 ))}
         
 
@@ -82,8 +85,9 @@ function Product({ product, setProductModal }) {
 
                 <button
                   className="rounded-md p-2 m-auto bg-sky-500"
+                  onClick={()=> {addToCart(product)}}
                 >
-                  Add to Cart
+                  <AddToCartIcon/>
                 </button>
               </div>
             </div>
