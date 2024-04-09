@@ -3,24 +3,26 @@ import { CartIcon, ClearCartIcon } from "./Icons.jsx";
 import { useId } from "react";
 import { useCart } from "../hooks/useCart.jsx";
 
-function CartItem({ urlImagen, precio, nombre, quantity, addToCart }) {
+function CartItem({ urlImagen, precio, nombre, quantity, total, addToCart, remove1FromCart }) {
   return (
-    <li>
+    <div className="gird grid-rows-3">
       <img src={urlImagen[0]} alt={nombre} />
       <div>
-        <strong>{nombre}</strong> - ${precio}
+        <strong>{nombre}</strong> -  ${(total).toLocaleString("es-Co")}
       </div>
       <footer>
-        <button>Qty: {quantity}</button>
+        <button>Cantidad: </button>
+        <button onClick={remove1FromCart}>-</button>
+        {quantity}
         <button onClick={addToCart}>+</button>
       </footer>
-    </li>
+    </div>
   );
 }
 
 function Cart() {
   const cartCheckboxId = useId();
-  const { cart, clearCart, addToCart  } = useCart();
+  const { cart, clearCart, addToCart, remove1FromCart  } = useCart();
 
   return (
     <>
@@ -29,17 +31,17 @@ function Cart() {
       </label>
       <input id={cartCheckboxId} type="checkbox" hidden />
 
-      <aside className="cart">
-        <ul>
+      <div className="cart">
+        <div>
           {cart.map(product => (
-          <CartItem key={product.id} addToCart={() => addToCart(product)} {...product}/>
+          <CartItem key={product.id} addToCart={() => addToCart(product)} remove1FromCart={() => remove1FromCart(product)} {...product}/>
             ))}
-        </ul>
+        </div>
 
         <button onClick={clearCart}>
           <ClearCartIcon />
         </button>
-      </aside>
+      </div>
     </>
   );
 }

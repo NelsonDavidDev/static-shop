@@ -13,7 +13,8 @@
             "Disponible en dos opciones de color: blanco clásico o negro trenzado con blanco.",
       
             "Si vas a comprar por docena para tu negocio o emprendimiento, mira nuestras otras publicaciones y obten descuento."],
-            "urlImagen": ["/products/docena super 350g/super (2).jpg", "/products/docena super 350g/super (1).jpg", "/products/docena super 350g/super (3).jpg", "/products/docena super 350g/super (4).jpg", "/products/docena super 350g/super (5).jpg"]
+            "urlImagen": ["/products/docena super 350g/super (2).jpg", "/products/docena super 350g/super (1).jpg", "/products/docena super 350g/super (3).jpg", "/products/docena super 350g/super (4).jpg", "/products/docena super 350g/super (5).jpg"],
+            "total": 84000
           },
           {
             "id": 2,
@@ -28,7 +29,8 @@
             "Disponible en dos opciones de color: blanco clásico o negro trenzado con blanco.",
       
             "Si vas a comprar por docena para tu negocio o emprendimiento, mira nuestras otras publicaciones y obten descuento."],
-            "urlImagen": ["/products/docena industrial 300g/industrial (2).jpg", "/products/docena industrial 300g/industrial (3).jpg"]
+            "urlImagen": ["/products/docena industrial 300g/industrial (2).jpg", "/products/docena industrial 300g/industrial (3).jpg"],
+            "total": 77000
           },
           {
             "id": 3,
@@ -43,7 +45,8 @@
             "Disponible en dos opciones de color: blanco clásico o negro trenzado con blanco.",
       
             "Si vas a comprar por docena para tu negocio o emprendimiento, mira nuestras otras publicaciones y obten descuento."],
-            "urlImagen": ["/products/docena economica 250g/economica (1).jpg", "/products/docena economica 250g/economica (2).jpg"]
+            "urlImagen": ["/products/docena economica 250g/economica (1).jpg", "/products/docena economica 250g/economica (2).jpg"],
+            "total": 61000
           }
     ]
 }

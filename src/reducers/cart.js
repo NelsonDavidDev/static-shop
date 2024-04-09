@@ -3,7 +3,8 @@ export const cartInitialState = JSON.parse(window.localStorage.getItem('cart')) 
 export const CART_ACTION_TYPES = {
   ADD_TO_CART: 'ADD_TO_CART',
   REMOVE_FROM_CART: 'REMOVE_FROM_CART',
-  CLEAR_CART: 'CLEAR_CART'
+  CLEAR_CART: 'CLEAR_CART',
+  REMOVE_1_FROM_CART: "REMOVE_1_FROM_CART"
 }
 
 // update localStorage with state for cart
@@ -21,7 +22,7 @@ const UPDATE_STATE_BY_ACTION = {
       // ⚡ usando el spread operator y slice
       const newState = [
         ...state.slice(0, productInCartIndex),
-        { ...state[productInCartIndex], quantity: state[productInCartIndex].quantity + 1 },
+        { ...state[productInCartIndex], quantity: state[productInCartIndex].quantity + 1, total: state[productInCartIndex].precio * ((state[productInCartIndex].quantity) + 1) },
         ...state.slice(productInCartIndex + 1)
       ]
 
@@ -49,6 +50,28 @@ const UPDATE_STATE_BY_ACTION = {
   [CART_ACTION_TYPES.CLEAR_CART]: () => {
     updateLocalStorage([])
     return []
+  },
+  [CART_ACTION_TYPES.REMOVE_1_FROM_CART]: (state, action) => {
+    const { id } = action.payload
+    const productInCartIndex = state.findIndex(item => item.id === id)
+
+    if (state[productInCartIndex].quantity > 1) {    
+
+      // ⚡ usando el spread operator y slice
+      const newState = [
+        ...state.slice(0, productInCartIndex),
+        { ...state[productInCartIndex], quantity: state[productInCartIndex].quantity - 1, total: state[productInCartIndex].precio * ((state[productInCartIndex].quantity) - 1)},
+        ...state.slice(productInCartIndex + 1)
+      ]
+
+      updateLocalStorage(newState)
+      return newState
+    }
+
+    const newState = state.filter(item => item.id !== id)
+    updateLocalStorage(newState)
+    return newState
+
   }
 }
 
