@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import { ClearCartIcon } from "./Icons.jsx";
+import { ClearCartIcon,WpIcon } from "./Icons.jsx";
 import { useCart } from "../hooks/useCart.jsx";
 import { Link } from "wouter";
 import { useState, useEffect } from "react";
+import Faq from "./Faq.jsx";
 
 function CartItem({
   id,
@@ -14,34 +15,39 @@ function CartItem({
   remove1FromCart,
 }) {
   return (
+    <div>
     <Link href={"/product/" + id} className="grid grid-col gap-1">
       <img className="w-40 rounded-xl" src={urlImagen[0]} alt={nombre} />
       <div className="text-xs flex flex-col w-40 min-h-16">
         <strong>{nombre}</strong>${total.toLocaleString("es-Co")}
       </div>
+      </Link>
       <footer>
         <button>Cantidad: </button>
         <button onClick={remove1FromCart}>-</button>
         {quantity}
         <button onClick={addToCart}>+</button>
       </footer>
-    </Link>
+      </div>
+    
   );
 }
 
-function Cart({ setCartModal }) {
+function Cart() {
   const { cart, clearCart, addToCart, remove1FromCart } = useCart();
-  const [mensaje, setMensaje] = useState()
+  const [mensaje, setMensaje] = useState("")
+  const [total, setTotal] = useState(0)
 
-  useEffect(() => {let mensajeInicial = ''; // Inicializamos el mensaje como una cadena vacía
+  function buyNow() {
+    let mensajeInicial = ''; // Inicializamos el mensaje como una cadena vacía
 
   // Iteramos sobre cada producto del carrito
   cart.forEach(producto => {
     // Construimos la cadena con los datos requeridos
-    const productoString = `
-      Nombre: ${producto.nombre},
+    const productoString = `Nombre: ${producto.nombre},
       Cantidad: ${producto.quantity},
       Precio: $ ${producto.total.toLocaleString("es-CO")} //
+
     `;
     
     // Agregamos la cadena del producto al mensaje existente
@@ -50,53 +56,62 @@ function Cart({ setCartModal }) {
 
   // Establecemos el mensaje final
   setMensaje(mensajeInicial);
-  }, [])
+  }
+
+  useEffect(() => {
+    buyNow();
+
+    let valorInicial = 0; // Inicializamos el mensaje como una cadena vacía
+
+    // Iteramos sobre cada producto del carrito
+    cart.forEach(producto => {
+      // Construimos la cadena con los datos requeridos
+      const productoString = parseInt(producto.total)
+      
+      // Agregamos la cadena del producto al mensaje existente
+      valorInicial += productoString;
+    });
   
+    // Establecemos el mensaje final
+    setTotal(valorInicial);
+  }, [cart],)
 
   return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center"
-      onClick={() => setCartModal(false)}
-    >
-      <div
-        className="w-11/12 h-5/6 flex flex-col bg-white p-5 rounded-xl mx-10 my-auto text-black"
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        <div
-          className="flex justify-end mb-1 -my-5 -mx-3 hover:cursor-pointer text-xl"
-          onClick={() => setCartModal(false)}
-        >
-          X
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full bg-white p-10 gap-5">
+    
+      <div className="h-screen">
+        <div className="flex flex-col justify-center items-center sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 w-full bg-white p-10">
           {cart.map((product) => (
-            <div onClick={() => setCartModal(false)} key={product.id}>
               <CartItem
+              key={product.id}
                 addToCart={() => addToCart(product)}
                 remove1FromCart={() => remove1FromCart(product)}
                 {...product}
               />
-            </div>
           ))}
         </div>
+        <div className="flex justify-center font-bold">
+        <div>Total: ${total.toLocaleString("es-CO")}</div>
+        </div>
+        <div className="flex flex-col lg:flex-row justify-center items-center gap-2 p-10">
+          
         <button
-          className="rounded-md flex p-2 my-2 bg-green-500 lg:ml-5"
+          className="flex justify-center bg-green-500 w-40 rounded-lg p-1"
           onClick={() => {
-            window.open(
-              `https://wa.me/573245708607?text=${encodeURIComponent(mensaje)}`,
-              "_blank"
-            );
+           buyNow();
           }}
         >
-          Comprar Ahora
+          <WpIcon/> Comprar Ahora
         </button>
-        <button className="flex justify-center" onClick={clearCart}>
-          <ClearCartIcon />
+        <button className="flex justify-center bg-red-500 w-40 rounded-lg p-1" onClick={() => {setMensaje(""); clearCart()}}>
+          <ClearCartIcon/> Vaciar Carrito
         </button>
-      </div>
-    </div>
+        </div>
+        <div className="flex justify-center flex-col items-center">
+          <div className="font-bold text-xl text-center   mb-5">Copia el siguiente texto y envianoslo por <a className="text-green-600" href="">WhatsApp</a> junto a tu dirección. <br/> Te responderemos con la cotización del domicilio.</div>
+          <div className="w-2/6 mb-10" style={{ whiteSpace: 'pre-line' }}>{mensaje} Total: {total.toLocaleString("es-CO")}</div>
+        </div>
+        <Faq/>
+        </div>
   );
 }
 

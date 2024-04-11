@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Link } from "wouter";
+import { products } from "./../mocks/products.json"
 
-export function Products({ products }) {
+function Products() {
   return (
     <>
       <main className="flex justify-center">
@@ -25,3 +26,5 @@ export function Products({ products }) {
     </>
   );
 }
+
+export default Products;
