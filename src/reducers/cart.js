@@ -9,7 +9,12 @@ export const CART_ACTION_TYPES = {
 
 // update localStorage with state for cart
 export const updateLocalStorage = state => {
-  window.localStorage.setItem('cart', JSON.stringify(state))
+  const nuevosObjetos = state.map(item => {
+    const { descripcion, ...cart } = item;
+    return cart;
+  });
+
+  window.localStorage.setItem('cart', JSON.stringify(nuevosObjetos));
 }
 
 const UPDATE_STATE_BY_ACTION = {

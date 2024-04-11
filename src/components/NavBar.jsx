@@ -1,4 +1,5 @@
-function NavBar() {
+/* eslint-disable react/prop-types */
+function NavBar({cartModal, setCartModal}) {
   return (
     <>
       <nav className="dark:bg-gray-900">
@@ -15,7 +16,7 @@ function NavBar() {
          <div className="">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={() => {}}
+                onClick={() => {setCartModal(!cartModal)}}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -28,47 +29,6 @@ function NavBar() {
                 </svg>
               </button>
             </div>
-          </div>
-        </div>
-      </nav>
-      <nav className="bg-gray-50 dark:bg-gray-700">
-        <div className="max-w-screen-xl px-4 py-3 mx-auto">
-          <div className="flex items-center">
-            <ul className="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
-              <li>
-                <a
-                  href={"/"}
-                  className="text-gray-900 dark:text-white hover:underline"
-                  aria-current="page"
-                >
-                  Inicio
-                </a>
-              </li>
-              <li>
-                <a
-                  href={"/"}
-                  className="text-gray-900 dark:text-white hover:underline"
-                >
-                  Categorias
-                </a>
-              </li>
-              <li>
-                <a
-                  href={"/"}
-                  className="text-gray-900 dark:text-white hover:underline"
-                >
-                  Promociones
-                </a>
-              </li>
-              <li>
-                <button
-                  onClick={() => {}}
-                  className="text-gray-900 dark:text-white hover:underline"
-                >
-                  Envios gratis
-                </button>
-              </li>
-            </ul>
           </div>
         </div>
       </nav>

@@ -1,101 +1,120 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { AddToCartIcon } from '../components/Icons.jsx'
-import { useCart } from '../hooks/useCart.jsx'
+import { useEffect, useState } from "react";
+import { useCart } from "../hooks/useCart.jsx";
+import { products } from "../mocks/products.json";
 
-function Product({ product, setProductModal }) {
-  const [currentImage, setCurrentImage] = useState(product.urlImagen[0]);
-  const [units, setUnits] = useState(1);
-  const { addToCart } = useCart()
+function Product({ id }) {
+  const [currentImage, setCurrentImage] = useState();
+  const { addToCart } = useCart();
+  const [product, setProduct] = useState();
+  const [mensaje, setMensaje] = useState("");
 
+  useEffect(() => {
+    // Buscar el producto con el mismo ID que el proporcionado en la URL
+    const productId = parseInt(id);
 
-  
+    // Buscar el producto con el mismo ID que el proporcionado en la URL
+    const foundProduct = products.find((product) => product.id === productId);
 
-  //increase counter
-  const increase = () => {
-    if (units < 50) {
-      setUnits(units + 1);
+    // Si se encuentra el producto, establecerlo en el estado
+    if (foundProduct) {
+      setProduct(foundProduct);
+    } else {
+      console.log("No se encontró el producto con el id", productId);
     }
-  };
+  }, [id]);
 
-  //decrease counter
-  const decrease = () => {
-    if (units > 1) {
-      setUnits(units - 1);
+  useEffect(() => {
+    if (product !== undefined) {
+      setCurrentImage(product.urlImagen[0]);
+      setMensaje(
+        `¡Hola! Estoy interesado en comprar el producto "${product.nombre}" por un precio de ${product.precio} pesos. ¿Cómo puedo continuar con la compra?`
+      );
     }
-  };
+  }, [product]);
 
   return (
-    <div
-        className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center "
-        onClick={() => setProductModal(false)}
-      >
-    <div className="w-11/12 grid grid-cols-1 lg:grid-cols-2 bg-white p-5 rounded-xl mx-10 my-auto text-black" onClick={(e) => {
+    <>
+      {product && (
+        <div
+          className="w-full flex flex-row  bg-white p-5 text-black xl:px-32"
+          onClick={(e) => {
             e.stopPropagation();
-          }}>
-      <div className="">
-        <div className="flex">
-          <img className="w-96 rounded-xl " src={currentImage} />
-        </div>
-
-        <div className="flex gap-2 mt-1 rounded-xl">
-          {product.urlImagen.map((image, index) => (
-            <img
-              className={
-                image === currentImage
-                  ? " w-24 rounded-lg border-solid border-4 border-sky-500"
-                  : " w-24 rounded-lg opacity-50 border-solid border-2"
-              }
-              key={index}
-              src={image}
-              alt={`Producto ${index + 1}`}
-              onClick={() => setCurrentImage(image)}
-              onMouseOver={() => setCurrentImage(image)}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="text-center flex-col flex justify-center mt-10">
-        <h2 className="text-2xl font-bold capitalize jus">{product.nombre}</h2>
-
-        {product.descripcion.map((image, index) => (
-          <p className="text-lg mt-4 " key={index}>{image}</p>
-))}
-        
-
-        <div className="h-full p-10 bg-white flex items-end justify-center">
-          <div className="">
-            <h2 className="text-5xl">
-              $ {(product.precio * units).toLocaleString("es-CO")}
-            </h2>
-            <br />
-            <div className="counter">
-              <div className="btn__container text-2xl flex justify-center items-center">
-                <div className="border border-black rounded-xl h-12 flex items-center justify-center mr-2">
-                  <button className="w-10 rounded-md h-full" onClick={decrease}>
-                    -
-                  </button>
-                  <span className="counter__output mx-0 font-bold ">
-                    {units}
-                  </span>
-                  <button className="w-10 rounded-md h-full" onClick={increase}>
-                    +
-                  </button>
-                </div>
-
-                <button
-                  className="rounded-md p-2 m-auto bg-sky-500"
-                  onClick={()=> {addToCart(product)}}
-                >
-                  <AddToCartIcon/>
-                </button>
+          }}
+        >
+          <div className="flex flex-col lg:flex-row">
+            <div className="flex flex-col gap-2 mt-1 rounded-xl justify-center mx-auto">
+              <div className="flex justify-center">
+                <img
+                  className="aspect-auto w-80 rounded-xl "
+                  src={currentImage}
+                />
               </div>
+              <div className="flex justify-center">
+                {product.urlImagen.map((image, index) => (
+                  <img
+                    className={
+                      image === currentImage
+                        ? "aspect-auto w-24 rounded-lg border-solid border-4 border-sky-500"
+                        : "aspect-auto w-24 rounded-lg  border-solid border-2"
+                    }
+                    key={index}
+                    src={image}
+                    alt={`Producto ${index + 1}`}
+                    onClick={() => setCurrentImage(image)}
+                    onMouseOver={() => setCurrentImage(image)}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="text-center flex-col flex justify-center items-center ml-5">
+              <h2 className="text-2xl font-bold capitalize">
+                {product.nombre}
+              </h2>
+
+              {product.descripcion.map((desc, index) => (
+                <p
+                  className="text-lg mt-4 w-96"
+                  key={index}
+                >
+                  {desc}
+                </p>
+              ))}
+            </div>
+          </div>
+          <div className="h-auto bg-white flex flex-col items-center lg:justify-center lg:w-96">
+            <div className="text-4xl">
+              $ {product.precio.toLocaleString("es-CO")}
+            </div>
+
+            <div className="btn__container text-2xl flex flex-col lg:flex-row">
+              <button
+                className="rounded-md flex p-2 my-2 bg-sky-500"
+                onClick={() => {
+                  addToCart(product);
+                }}
+              >
+                Añadir al carrito
+              </button>
+              <button
+                className="rounded-md flex p-2 my-2 bg-green-500 lg:ml-5"
+                onClick={() => {
+                  window.open(
+                    `https://wa.me/573234584625?text=${encodeURIComponent(
+                      mensaje
+                    )}`,
+                    "_blank"
+                  );
+                }}
+              >
+                Comprar Ahora
+              </button>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    </div>
+      )}
+      <h2 className="text-xl font-bold mx-10 mt-20">Productos similares</h2>
+    </>
   );
 }
 
