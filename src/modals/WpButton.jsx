@@ -1,7 +1,7 @@
 function WpButton() {
   return (
     <div className="fixed bottom-0 right-0 mb-4 mr-4 animate-bounce hover:animate-pulse"><a
-    href={`https://wa.me/573234584625?text=Message`}
+    href={`https://wa.me/573245708607`}
     className="text-sm  text-gray-500 dark:text-white hover:underline"
     target="_blank"
   >

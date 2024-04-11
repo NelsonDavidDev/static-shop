@@ -1,10 +1,7 @@
-import { useState } from "react";
-import Product from "./../modals/Product";
+/* eslint-disable react/prop-types */
 import { Link } from "wouter";
 
 export function Products({ products }) {
-  const [product, setProduct] = useState();
-  const [productModal, setProductModal] = useState(false);
   return (
     <>
       <main className="flex justify-center">
@@ -14,9 +11,6 @@ export function Products({ products }) {
               <Link className="flex flex-col justify-center"
               href={"/product/" + product.id}
                 key={product.id}
-                onClick={() => {
-                  setProduct(product);
-                }}
               >
                 <img className="w-40" src={product.urlImagen[0]} alt={product.nombre} />
                 <div className="flex flex-col w-40">
@@ -28,11 +22,6 @@ export function Products({ products }) {
           })}
           </div>
       </main>
-      {productModal ? (
-        <Product product={product} setProductModal={setProductModal} />
-      ) : (
-        ""
-      )}
     </>
   );
 }
