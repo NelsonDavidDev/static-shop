@@ -13,7 +13,7 @@ function Products() {
               href={"/product/" + product.id}
                 key={product.id}
               >
-                <img className="w-40" src={product.urlImagen[0]} alt={product.nombre} />
+                <img className="w-40 rounded-lg" src={product.urlImagen[0]} alt={product.nombre} />
                 <div className="flex flex-col w-40">
                   <strong>{product.nombre}</strong> 
                   ${(product.precio * 1).toLocaleString("es-CO")}

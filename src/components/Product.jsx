@@ -2,12 +2,28 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../hooks/useCart.jsx";
 import { products } from "../mocks/products.json";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Product({ id }) {
   const [currentImage, setCurrentImage] = useState();
   const { addToCart } = useCart();
   const [product, setProduct] = useState();
   const [mensaje, setMensaje] = useState("");
+
+  const notification = () => {
+    toast.success('Producto añadido al carrito', {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light"
+      });
+  }
+
 
   useEffect(() => {
     // Buscar el producto con el mismo ID que el proporcionado en la URL
@@ -35,6 +51,7 @@ function Product({ id }) {
 
   return (
     <>
+    <ToastContainer />
       {product && (
         <div
           className="w-full flex flex-row  bg-white p-5 text-black xl:px-32"
@@ -87,17 +104,18 @@ function Product({ id }) {
               $ {product.precio.toLocaleString("es-CO")}
             </div>
 
-            <div className="btn__container text-2xl flex flex-col lg:flex-row">
+            <div className="btn__container text-2xl flex flex-col lg:flex-row text-white">
               <button
                 className="rounded-md flex p-2 my-2 bg-sky-500"
                 onClick={() => {
                   addToCart(product);
+                  notification();
                 }}
               >
                 Añadir al carrito
               </button>
               <button
-                className="rounded-md flex p-2 my-2 bg-green-500 lg:ml-5"
+                className="rounded-md flex p-2 my-2 bg-gray-900 lg:ml-5"
                 onClick={() => {
                   window.open(
                     `https://wa.me/573234584625?text=${encodeURIComponent(
